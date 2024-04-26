@@ -1,7 +1,7 @@
 <template>
   <v-select
     v-model="selectedValue"
-    :reduce="(element) => element.id"
+    :reduce="(element) => element[label]"
     :options="options"
     :multiple="multiple"
     :label="labelField"
@@ -15,6 +15,7 @@
       {{ handleOption(option) }}
     </template>
   </v-select>
+  <!-- input se valore da selezionare è multiplo -->
   <select
     class="hidden"
     v-if="multiple"
@@ -26,6 +27,7 @@
       {{ option.id }}
     </option>
   </select>
+  <!-- input se valore da selezionare è uno solo -->
   <input
     v-if="!multiple"
     type="hidden"
@@ -76,20 +78,31 @@ export default {
       }
     });
 
+    // questa watch cambia selectedValue e lo imposta = value quando cambio props.value
     watch(
       () => props.value,
       (value) => (selectedValue.value = value)
     );
 
+    // questa watch fa partire un emit quando cambio selectedValue
     watch(selectedValue, (selectedValue, oldValue) => {
       if (
         selectedValue != oldValue &&
         ((selectedValue !== null && String(selectedValue).length > 0) ||
           (oldValue !== null && String(oldValue).length > 0))
       ) {
-        if (props.doubleEmit !== undefined)
+        console.log("siaaamo DENTRNOTRNOTNROTNORNTORNTO");
+        // doubleemit non lo passo mai da ReservationForm come props quindi non entro mai qua dentro
+        if (props.doubleEmit !== undefined) {
           context.emit("selectedValueChange", { oldValue, selectedValue });
-        else context.emit("selectedValueChange", selectedValue);
+          //entro sempre qua dentro
+        } else {
+          console.log(
+            "vediamo selectedValue che emetto e uso nello state",
+            selectedValue
+          );
+          context.emit("selectedValueChange", selectedValue);
+        }
       }
     });
 
@@ -111,6 +124,8 @@ export default {
         });
         return optionLabel;
       } else {
+        //entriamo sempre nell'else perchè in ReservationForm label non include mai il pipe
+        //questo metodo praticamente mi consente di renderizzare solo la proprietà che ho in props.label
         return option[props.label];
       }
     };

@@ -137,9 +137,7 @@ export default {
 
     onBeforeMount(async () => {
       apiStore.isLoading = true;
-      //console.log("prima della chiamata");
       const response = await apiStore.fetch(urlLocations);
-      //console.log(response);
       locations.value = response;
       apiStore.isLoading = false;
     });
@@ -201,29 +199,31 @@ export default {
         state.hours = null; // quando cambio data riazzero le ore e alla fine le ripopolo
 
         // trovo la data da mettere nell'url
-        const selectedDateId = state.date; // state.date è l'id nell'oggetto della data selezionata
-        const selectedDate = dates.find((date) => date.id === selectedDateId); // trovo l'intero oggetto della data selezionata
-        const selectedDateString = selectedDate ? selectedDate.data : null; // mi prendo la proprietà che mi interessa
-        console.log("selectedDateString", selectedDateString);
+        // const selectedDateId = state.date; // state.date è l'id nell'oggetto della data selezionata
+        // const selectedDate = dates.find((date) => date.id === selectedDateId); // trovo l'intero oggetto della data selezionata
+        // const selectedDateString = selectedDate ? selectedDate.data : null; // mi prendo la proprietà che mi interessa
+        // console.log("selectedDateString", selectedDateString);
+        // TUTTO QUESTO GIRO NON MI SERVE PIù DATO CHE HO DIRETTAMENTE IL VALORE CHE MI INTERESSA NELLO STATE
+        //NON DEVO PIù PARTIRE DALL ID
 
         // trovo la location da mettere nell'url
-        const selectedLocationId = state.locations; // state.locations è l'id nell'oggetto della location selezionata
-        const selectedLocation = locations.value.find(
-          (location) => location.id === selectedLocationId
-        ); // trovo l'intero oggetto della location selezionata
+        // const selectedLocationId = state.locations; // state.locations è l'id nell'oggetto della location selezionata
+        // const selectedLocation = locations.value.find(
+        //   (location) => location.id === selectedLocationId
+        // ); // trovo l'intero oggetto della location selezionata
 
-        const selectedLocationString = selectedLocation
-          ? selectedLocation.centro
-          : null; // mi prendo la proprietà che mi interessa
+        // const selectedLocationString = selectedLocation
+        //   ? selectedLocation.centro
+        //   : null; // mi prendo la proprietà che mi interessa
 
         let urlHours =
           process.env.VUE_APP_API_URL +
           "/fetchOre" +
           "?" +
           "centroGDS=" +
-          selectedLocationString +
+          state.locations +
           "&data=" +
-          selectedDateString;
+          state.date;
         console.log("urlhours", urlHours);
 
         //far partire chiamata e popolare hours
