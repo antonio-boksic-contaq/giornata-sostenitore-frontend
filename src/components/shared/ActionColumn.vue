@@ -1,5 +1,7 @@
 <template>
-  <div
+  <!-- questo v-if non ci serve in questo progetto dato che non ci sono giorni/fasce orarie cancellate -->
+
+  <!-- <div
     v-if="
       Object.prototype.hasOwnProperty.call(props.row, 'deleted_at') &&
       props.row.deleted_at !== null
@@ -14,9 +16,12 @@
       v-tooltip.top="'Recupera'"
       @mouseover="changeTooltipColor('warning')"
       @click="restoreItem(props, itemTitle)"></Button>
-  </div>
-  <div class="inline" v-else>
-    <Button
+  </div> -->
+
+  <!--  levato v-else da tag div class="inline" in quanto ho commentato il v-if sopra -->
+  <div class="inline">
+    <!-- bottone update -->
+    <!-- <Button
       v-if="
         actions.includes('update') &&
         authStore.user.permissions.includes('update ' + item)
@@ -25,20 +30,18 @@
       class="p-button-rounded p-button-success p-button-text mr-2 mb-2"
       v-tooltip.top="'Modifica'"
       @mouseover="changeTooltipColor('success')"
-      @click="editItem(props, itemTitle)"></Button>
+      @click="editItem(props, itemTitle)"></Button> -->
 
     <Button
-      v-if="
-        actions.includes('detail-modal') &&
-        authStore.user.permissions.includes('see ' + item)
-      "
+      v-if="actions.includes('detail-modal')"
       icon="pi pi-search"
       class="p-button-rounded p-button-info p-button-text mr-2 mb-2"
       v-tooltip.top="'Dettaglio'"
       @mouseover="changeTooltipColor('info')"
       @click="detailItem(props, itemTitle, item)"></Button>
 
-    <router-link
+    <!-- router link per pagina dettaglio -->
+    <!-- <router-link
       v-if="
         actions.includes('detail-page') &&
         authStore.user.permissions.includes('see ' + item)
@@ -52,9 +55,10 @@
         class="p-button-rounded p-button-info p-button-text mr-2 mb-2"
         @mouseover="changeTooltipColor('info')"
         v-tooltip.top="'Dettaglio'"></Button>
-    </router-link>
+    </router-link> -->
 
-    <Button
+    <!-- bottone elimina -->
+    <!-- <Button
       v-if="
         actions.includes('delete') &&
         authStore.user.permissions.includes('delete ' + item)
@@ -63,7 +67,7 @@
       class="p-button-rounded p-button-danger p-button-text mr-2 mb-2"
       v-tooltip.top="'Cancella'"
       @mouseover="changeTooltipColor('danger')"
-      @click="deleteItem(props, itemTitle)"></Button>
+      @click="deleteItem(props, itemTitle)"></Button> -->
   </div>
 </template>
 <script>
@@ -121,9 +125,23 @@ export default {
     };
 
     const detailItem = (rowItem, itemText, modalToShow) => {
+      console.log("cliccato dettaglio del giorno");
+      console.log(
+        "rowitem",
+        rowItem,
+        "itemText",
+        itemText,
+        "modaltoshow",
+        modalToShow
+      );
+      //detailItem l'ho aggiunto io perchè non ho id per questo record, sono dati gruppati
+      modalStore.detailItem = rowItem.row;
       const itemValue = itemText !== null ? itemText : rowItem.row[props.field];
+      console.log("itemvalue", itemValue);
       modalStore.detailId = rowItem.row.id;
-      formStore.formToShow = null;
+      console.log("modalstore.detailid", modalStore.detailId); //undefined perchè non c'è ID nella row essendo dati gruppati, dovremmo passarci nome centro e turno per poter fare la query che mi dà fasce orarie per quel turno per quel centro
+      //questo lo usiamo per v-if nella ReservationModal
+      formStore.formToShow = "reservationsByHour";
       modalStore.modalToShow = modalToShow;
       modalStore.open(itemValue, "detail");
     };

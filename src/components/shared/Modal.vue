@@ -1,5 +1,6 @@
 <template>
   <Transition name="fade">
+    <!-- sfondo opaco tra modale e view -->
     <div
       v-if="modalStore.isOpen && !loadingStore.isLoading"
       @click="close"

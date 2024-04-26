@@ -1,12 +1,12 @@
 <template>
   <div :class="containerClass" @click="onWrapperClick">
-    <AppTopBar @menu-toggle="onMenuToggle" v-if="authStore.isLoggedIn" />
-    <div
+    <AppTopBar @menu-toggle="onMenuToggle" />
+    <!-- <div
       class="layout-sidebar"
       @click="onSidebarClick"
       v-if="authStore.isLoggedIn">
       <AppMenu :model="menu" @menuitem-click="onMenuItemClick" />
-    </div>
+    </div> -->
 
     <div
       :class="[
@@ -29,7 +29,7 @@
 <script>
 import { computed, onBeforeMount, ref } from "vue";
 import AppTopBar from "@/components/menu/AppTopbar.vue";
-import AppMenu from "@/components/menu/AppMenu.vue";
+// import AppMenu from "@/components/menu/AppMenu.vue";
 // import DefaultMenu from "./service/DefaultMenu";
 import Menu from "@/service/Menu";
 import { useAuthStore } from "@/store/auth";
@@ -38,11 +38,12 @@ import { useSettingStore } from "@/store/settings";
 export default {
   components: {
     AppTopBar: AppTopBar,
-    AppMenu: AppMenu,
+    // AppMenu: AppMenu,
   },
   setup() {
     const layoutMode = ref("static");
-    const staticMenuInactive = ref(false);
+    // messo staticMenuInactive = true in modo che menù è chiuso quando monta la pagina
+    const staticMenuInactive = ref(true);
     const overlayMenuActive = ref(false);
     const mobileMenuActive = ref(false);
     const menuClick = ref(false);

@@ -10,6 +10,7 @@ export const useModalStore = defineStore("modal", {
     modalToShow: null,
     detailId: null,
     size: null,
+    detailItem: null,
   }),
   actions: {
     open(item, type) {
@@ -40,6 +41,7 @@ export const useModalStore = defineStore("modal", {
       this.modalToShow = null;
       this.detailId = null;
       this.size = null;
+      this.detailItem = null;
     },
   },
 });

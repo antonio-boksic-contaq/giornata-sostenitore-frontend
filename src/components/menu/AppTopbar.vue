@@ -1,13 +1,16 @@
 <template>
   <div class="layout-topbar">
     <div class="layout-topbar-logo">
-      <img alt="Logo" class="h-16" :src="imgFolderPath + '/logo.png'" />
+      <img
+        alt="Logo"
+        class="h-16"
+        :src="imgFolderPath + '/LFD_icon_no_bg.png'" />
     </div>
-    <button
+    <!-- <button
       class="p-link layout-menu-button layout-topbar-button"
       @click="onMenuToggle">
       <i class="pi pi-bars"></i>
-    </button>
+    </button> -->
 
     <button
       class="p-link layout-topbar-menu-button layout-topbar-button"
@@ -72,10 +75,10 @@
         </Transition>
       </li>
       <li>
-        <button @click="profileMenuToggle" class="p-link layout-topbar-button">
+        <!-- <button @click="profileMenuToggle" class="p-link layout-topbar-button">
           <i class="pi pi-user"></i>
           <span>Profile</span>
-        </button>
+        </button> -->
         <Transition name="bounce">
           <div
             v-if="profileMenu"

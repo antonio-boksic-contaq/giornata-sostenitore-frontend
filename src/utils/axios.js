@@ -15,7 +15,9 @@ const getAxiosHeaders = (token) => ({
 
 export const get = async (token, url, request = null) => {
   if (request != null) url += "?" + new URLSearchParams(request).toString();
-  return await axios.create(getAxiosHeaders(token)).get(url, request);
+  return await axios.create().get(url, request);
+  // questo mi serve se sono autenticato, ma per questo progetto non usiamo autenticazione
+  // return await axios.create(getAxiosHeaders(token)).get(url, request);
 };
 
 export const excel = async (token, url, request = null, filename) => {
@@ -53,18 +55,24 @@ export const pdf = async (token, url, request = null) => {
 };
 
 export const post = async (token, url, form, appendData = null, closeModal) => {
+  console.log("sono qui dentro a ancora non ci sono errori");
   const errorStore = useErrorsStore();
   const modalStore = useModalStore();
   const apiStore = useApiStore();
   const popupStore = usePopupStore();
   errorStore.hide();
+  console.log("typeofform", typeof form);
+  console.log("formMMMMMMMMMM", form);
   const data =
     typeof form === "string"
       ? new FormData(document.getElementById(form))
       : form;
   if (appendData !== null) data.append(appendData, 1);
+
   return await axios
-    .create(getAxiosHeaders(token))
+
+    // .create(getAxiosHeaders(token))
+    .create() //levato getAxiosHeaders(token) come argomento, stesso discorso della get sopra
     .post(url, data)
     .then((result) => {
       if (result.status === 200) {

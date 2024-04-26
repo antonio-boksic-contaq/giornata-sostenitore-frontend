@@ -3,11 +3,11 @@
     <template #content>
       <div class="grid grid-cols-1 md:grid-cols-6 gap-4">
         <div class="md:col-start-1 col-end-2">
-          <trashed-filter
+          <!-- <trashed-filter
             :field="field"
             :url="url"
             @fetchData="fetchData($event)"
-            @emptyTable="emptyTable" />
+            @emptyTable="emptyTable" /> -->
         </div>
         <action-standard-buttons
           :url="url"
@@ -20,7 +20,7 @@
 </template>
 <script>
 import DefaultAction from "@/components/layouts/DefaultAction.vue";
-import TrashedFilter from "@/components/actions/TrashedFilter.vue";
+// import TrashedFilter from "@/components/actions/TrashedFilter.vue";
 import ActionStandardButtons from "@/components/shared/ActionStandardButtons.vue";
 
 export default {
@@ -28,7 +28,7 @@ export default {
   components: {
     ActionStandardButtons,
     DefaultAction,
-    TrashedFilter,
+    // TrashedFilter,
   },
   props: ["actionUrl", "field", "url", "item", "itemText"],
   emits: ["fetchData", "emptyTable"],
