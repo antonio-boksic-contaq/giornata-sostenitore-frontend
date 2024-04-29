@@ -18,6 +18,7 @@
           :multiple="false"
           @selectedValueChange="changeData($event, 'locations')"
           field="locations"></vue-select>
+        <validation-error :vuelidate="v$.locations" />
 
         <!-- date -->
         <div v-if="state.locations != null">
@@ -31,6 +32,7 @@
             :multiple="false"
             @selectedValueChange="changeData($event, 'date')"
             field="date"></vue-select>
+          <!-- <validation-error :vuelidate="v$.data" /> -->
         </div>
 
         <!-- ore -->
@@ -45,6 +47,7 @@
             :multiple="false"
             @selectedValueChange="changeData($event, 'hours')"
             field="hours"></vue-select>
+          <!-- <validation-error :vuelidate="v$.hours" /> -->
         </div>
 
         <!-- codice sostenitore -->
@@ -58,7 +61,7 @@
           placeholder="Inserire il codice sostenitore"
           v-model="state.codiceSostenitore"
           class="w-full" />
-        <!-- <validation-error :vuelidate="v$.description" /> -->
+        <validation-error :vuelidate="v$.codiceSostenitore" />
 
         <!-- persone -->
         <label for="persone" class="font-medium block mb-2">
@@ -71,7 +74,7 @@
           placeholder="Inserire numero partecipanti"
           v-model="state.persone"
           class="w-full" />
-        <!-- <validation-error :vuelidate="v$.description" /> -->
+        <validation-error :vuelidate="v$.persone" />
 
         <button @click="showStateLocation">consolelog state</button>
 
@@ -111,12 +114,12 @@ import { reactive, ref, onBeforeMount } from "vue";
 import { useApiStore } from "@/store/api";
 import { useFormStore } from "@/store/forms";
 import Errors from "@/components/shared/Errors.vue";
-// import ValidationError from "@/components/shared/ValidationError";
+import ValidationError from "@/components/shared/ValidationError";
 import VueSelect from "@/components/shared/VueSelect";
 
 export default {
   name: "ReservationForm",
-  components: { Errors, VueSelect },
+  components: { Errors, VueSelect, ValidationError },
   props: ["url"],
   emits: ["emptyTable", "fetchData"],
   setup(props, context) {
@@ -126,8 +129,8 @@ export default {
 
     const locations = ref([]);
     const dates = [
-      { id: 1, data: "Venerdì 24 maggio" },
-      { id: 2, data: "Sabato 25 maggio" },
+      { id: 1, data: "Venerdì 24 maggio " },
+      { id: 2, data: "Sabato 25 maggio " },
     ];
     const hours = ref([]);
 
@@ -155,7 +158,19 @@ export default {
 
     // da capire meglio tutto il discorso Vuelidate
     const rules = {
-      description: {
+      persone: {
+        required: helpers.withMessage("Questo campo è obbligatorio", required),
+      },
+      codiceSostenitore: {
+        required: helpers.withMessage("Questo campo è obbligatorio", required),
+      },
+      // hours: {
+      //   required: helpers.withMessage("Questo campo è obbligatorio", required),
+      // },
+      // date: {
+      //   required: helpers.withMessage("Questo campo è obbligatorio", required),
+      // },
+      locations: {
         required: helpers.withMessage("Questo campo è obbligatorio", required),
       },
     };

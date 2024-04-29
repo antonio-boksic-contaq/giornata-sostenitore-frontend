@@ -4,78 +4,62 @@
     :url="url"
     @fetchData="fetchData($event)"
     @emptyTable="emptyRows" /> -->
-  <div>{{ modalStore.detailItem }}</div>
+
+  <!-- <div>{{ modalStore.detailItem }}</div> -->
+  <hourly-reservation-table :rows="reservations" />
+  HOURLY RESERVATIONS:
+  <div>{{ reservations }}</div>
 </template>
 <script>
 import { ref } from "vue";
 import { get } from "@/utils/axios";
 import { onBeforeMount } from "@vue/runtime-core";
 import { useLoadingStore } from "@/store/loadings";
-import { pdf } from "@/utils/axios";
 import { useAuthStore } from "@/store/auth";
 import { parseItDateTime, parseItDate } from "@/utils/date";
-// import GroupedReservationTable from "@/components/tables/GroupedReservationTable.vue";
+import HourlyReservationTable from "@/components/tables/HourlyReservationTable.vue";
 import { useModalStore } from "@/store/modals";
 
 export default {
   name: "TaskDetail",
-  // components: { GroupedReservationTable },
-  props: ["selectedTaskId", "url"],
-  emits: ["fetchData"],
-  setup(props) {
+  components: { HourlyReservationTable },
+  props: [],
+  emits: [],
+  setup() {
     const loadingStore = useLoadingStore();
     const modalStore = useModalStore();
     const authStore = useAuthStore();
-    const selectedTask = ref(null);
-    const urlTask =
-      process.env.VUE_APP_API_URL + "/tasks/" + props.selectedTaskId;
+    const url =
+      process.env.VUE_APP_API_URL +
+      "/detailAppuntamentoGiornaliero" +
+      "?centroGDS=" +
+      modalStore.detailItem.centro +
+      "&giornoGDS=" +
+      modalStore.detailItem.data +
+      "&timeOfDay=" +
+      modalStore.detailItem.fasciaGiorno;
+
+    const reservations = ref([]);
 
     onBeforeMount(async () => {
-      // await fetchTask();
-      console.log("questo è il fetch di task detail", selectedTask);
+      console.log("detailitem", modalStore.detailItem);
+      await fetchDetail();
     });
 
-    const handleEmit = (event) => {
-      console.log("event in task detail", event);
-      selectedTask.value = event;
-    };
-
-    const fetchTask = async () => {
+    const fetchDetail = async () => {
       loadingStore.load();
-      const response = await get(authStore.accessToken, urlTask);
-      selectedTask.value = response.data;
+      const response = await get(authStore.accessToken, url);
+      console.log("response.data", response.data);
+      reservations.value = response.data;
       loadingStore.stop();
     };
 
-    const checkCurrentTask = () => {
-      console.log(
-        "vediamo task attualmente nel componente",
-        props.selectedTaskId
-      );
-    };
-
-    const downloadAttachment = async (fileId, fileName) => {
-      loadingStore.load();
-      await pdf(
-        authStore.accessToken,
-        process.env.VUE_APP_API_URL +
-          "/task-attachments/" +
-          fileId +
-          "/download",
-        fileName
-      );
-      loadingStore.stop();
-    };
     return {
-      downloadAttachment,
       parseItDateTime,
       parseItDate,
-      handleEmit,
-      checkCurrentTask,
-      selectedTask,
-      urlTask,
-      fetchTask,
+      fetchDetail,
       modalStore,
+      reservations,
     };
   },
 };

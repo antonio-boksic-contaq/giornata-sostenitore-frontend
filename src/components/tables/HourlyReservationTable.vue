@@ -42,24 +42,24 @@
       </span>
     </template>
   </vue-good-table>
-  <Confirm @fetchData="fetchData($event)" @emptyTable="emptyTable" />
+  <!-- <Confirm @fetchData="fetchData($event)" @emptyTable="emptyTable" /> -->
 </template>
 <script>
 import { VueGoodTable } from "vue-good-table-next";
 import "vue-good-table-next/dist/vue-good-table-next.css";
 import { ref } from "vue";
-import Confirm from "@/components/shared/Confirm";
+// import Confirm from "@/components/shared/Confirm";
 import ActionColumn from "@/components/shared/ActionColumn";
 import { useApiStore } from "@/store/api";
 import { useConfirmStore } from "@/store/confirms";
 import { emptyState, searchOptions, paginationOptions } from "@/utils/tables";
 
 export default {
-  name: "GroupedReservationTable",
+  name: "HourlyReservationTable",
   components: {
     ActionColumn,
     VueGoodTable,
-    Confirm,
+    // Confirm,
   },
   props: ["rows", "url"],
   emits: ["emptyTable", "fetchData"],
@@ -78,36 +78,28 @@ export default {
 
     const columns = ref([
       {
-        label: "Centro",
-        field: "centro",
-      },
-      {
-        label: "Data",
-        field: "data",
-      },
-      {
-        label: "Turno",
-        field: "fasciaGiorno",
-        sortable: false,
-      },
-      {
-        label: "Fascia Oraria",
-        field: "fasciaOraria",
-        sortable: false,
-      },
-      {
-        label: "Prenotazioni",
-        field: "totaleGDS",
+        label: "Ora",
+        field: "oraGDS",
+        tdClass: "text-center",
+        thClass: "text-center",
         sortable: false,
       },
 
       {
-        label: "Azioni",
-        field: "actionsColumn",
-        width: "12rem",
+        label: "Prenotazioni",
+        field: "totaleGDS",
         tdClass: "text-center",
+        thClass: "text-center",
         sortable: false,
       },
+
+      // {
+      //   label: "Azioni",
+      //   field: "actionsColumn",
+      //   width: "12rem",
+      //   tdClass: "text-center",
+      //   sortable: false,
+      // },
     ]);
 
     return {
