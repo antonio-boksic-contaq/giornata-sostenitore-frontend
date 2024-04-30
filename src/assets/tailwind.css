@@ -675,6 +675,11 @@ html {
   margin-right: 0px !important;
 }
 
+.my-5 {
+  margin-top: 1.25rem !important;
+  margin-bottom: 1.25rem !important;
+}
+
 .my-4 {
   margin-top: 1rem !important;
   margin-bottom: 1rem !important;
@@ -683,16 +688,6 @@ html {
 .my-3 {
   margin-top: 0.75rem !important;
   margin-bottom: 0.75rem !important;
-}
-
-.my-5 {
-  margin-top: 1.25rem !important;
-  margin-bottom: 1.25rem !important;
-}
-
-.my-0 {
-  margin-top: 0px !important;
-  margin-bottom: 0px !important;
 }
 
 .mb-2 {
@@ -755,12 +750,12 @@ html {
   margin-right: 0px !important;
 }
 
-.mr-1 {
-  margin-right: 0.25rem !important;
-}
-
 .ml-7 {
   margin-left: 1.75rem !important;
+}
+
+.mr-1 {
+  margin-right: 0.25rem !important;
 }
 
 .mt-1 {
@@ -839,12 +834,12 @@ html {
   margin-top: 12rem !important;
 }
 
-.mt-12 {
-  margin-top: 3rem !important;
+.ml-0 {
+  margin-left: 0px !important;
 }
 
-.ml-6 {
-  margin-left: 1.5rem !important;
+.mt-12 {
+  margin-top: 3rem !important;
 }
 
 .block {
@@ -1238,10 +1233,6 @@ html {
   padding-right: 0.5rem !important;
 }
 
-.pl-5 {
-  padding-left: 1.25rem !important;
-}
-
 .pt-6 {
   padding-top: 1.5rem !important;
 }
@@ -1531,6 +1522,10 @@ html {
     grid-column-start: 11 !important;
   }
 
+  .md\:col-start-7 {
+    grid-column-start: 7 !important;
+  }
+
   .md\:col-end-12 {
     grid-column-end: 12 !important;
   }
@@ -1561,6 +1556,10 @@ html {
 
   .md\:col-end-7 {
     grid-column-end: 7 !important;
+  }
+
+  .md\:col-end-9 {
+    grid-column-end: 9 !important;
   }
 
   .md\:my-0 {

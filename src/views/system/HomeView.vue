@@ -24,7 +24,7 @@
               @emptyTable="emptyRows"
               @fetchData="fetchData($event)" />
           </div>
-          <div class="md:col-start-4 md:col-end-6">
+          <div class="md:col-start-4 md:col-end-7">
             <select-filter
               label="Centro"
               text="centro"
@@ -36,7 +36,7 @@
               @emptyTable="emptyRows"
               @fetchData="fetchData($event)" />
           </div>
-          <div class="md:col-start-6 md:col-end-13">
+          <div class="md:col-start-7 md:col-end-10">
             <select-filter
               label="Turno"
               text="turno"
