@@ -4,7 +4,7 @@
       <img
         alt="Logo"
         class="h-16"
-        :src="imgFolderPath + '/LFD_icon_no_bg.png'" />
+        :src="imgFolderPath + '/logo_contaq_no_bg.png'" />
     </div>
     <!-- <button
       class="p-link layout-menu-button layout-topbar-button"
