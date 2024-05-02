@@ -6,16 +6,23 @@
       :method="formStore.method"
       :id="formStore.id + 'Reservation'"
       @submit.prevent="submit">
-      <div class="mt-0">
-        <div v-if="state.locations === null" class="warning">
-          Per poter selezionare una data è necessario prima selezionare una sede
-        </div>
+      <transition name="fade">
         <div
-          v-if="state.date === null && state.locations !== null"
+          v-if="state.locations === null || state.date === null"
           class="warning">
-          Per poter selezionare un orario è necessario prima selezionare una
-          data
+          {{ warningMessage }}
         </div>
+      </transition>
+      <div class="mt-0">
+        <!-- <transition name="fade">
+          <div
+            v-if="state.date === null && state.locations !== null"
+            class="warning">
+            Per poter selezionare un orario è necessario prima selezionare una
+            data
+          </div>
+        </transition> -->
+
         <!-- sedi -->
 
         <label for="location" class="font-medium block mb-2"> Sede </label>
@@ -114,7 +121,7 @@
 <script>
 import { useVuelidate } from "@vuelidate/core";
 import { required, helpers } from "@vuelidate/validators";
-import { reactive, ref, onBeforeMount } from "vue";
+import { reactive, ref, onBeforeMount, computed } from "vue";
 import { useApiStore } from "@/store/api";
 import { useFormStore } from "@/store/forms";
 import Errors from "@/components/shared/Errors.vue";
@@ -253,6 +260,16 @@ export default {
       }
     };
 
+    const warningMessage = computed(() => {
+      if (state.locations === null) {
+        return "Per poter selezionare una data è necessario prima selezionare una sede";
+      } else if (state.date === null && state.locations !== null) {
+        return "Per poter selezionare un orario è necessario prima selezionare una data";
+      } else {
+        return "";
+      }
+    });
+
     return {
       formStore,
       submit,
@@ -263,6 +280,7 @@ export default {
       showStateLocation,
       dates,
       hours,
+      warningMessage,
     };
   },
 };
@@ -271,7 +289,7 @@ export default {
 <style>
 .warning {
   background-color: orange;
-  padding: 10px; /* Aggiunge spazio interno */
+  padding: 4px; /* Aggiunge spazio interno */
   border-radius: 5px; /* Aggiunge bordi arrotondati */
   width: fit-content; /* Larghezza che si adatta al contenuto */
   margin-bottom: 10px; /* Aggiunge spazio sotto l'elemento */
