@@ -5,10 +5,9 @@
     @fetchData="fetchData($event)"
     @emptyTable="emptyRows" /> -->
 
-  <!-- <div>{{ modalStore.detailItem }}</div> -->
-  <hourly-reservation-table :rows="reservations" />
-  HOURLY RESERVATIONS:
-  <div>{{ reservations }}</div>
+  <hourly-reservation-table
+    :rows="reservations"
+    :max_partecipanti="modalStore.detailItem.max_partecipanti" />
 </template>
 <script>
 import { ref } from "vue";

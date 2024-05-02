@@ -7,12 +7,12 @@
         class="p-button-rounded p-button-primary p-button-text mr-3"
         :label="'Aggiungi ' + itemText"
         @click="openModal"></Button>
-      <!-- <Button
+      <Button
         icon="pi pi-file-excel text-3xl"
         class="p-button-rounded p-button-success p-button-text mr-2"
         @mouseover="changeTooltipColor('success')"
         v-tooltip.top="'Scarica'"
-        @click="apiStore.export(url, fileName)" /> -->
+        @click="apiStore.export(url, fileName)" />
     </div>
   </div>
 </template>

@@ -38,7 +38,7 @@
           " />
       </span>
       <span v-if="props.column.field === 'totaleGDS'">
-        {{ Number(props.row.totaleGDS) + " / " + props.row.max_partecipanti }}
+        {{ Number(props.row.totaleGDS) + " / " + max_partecipanti }}
       </span>
     </template>
   </vue-good-table>
@@ -61,7 +61,7 @@ export default {
     VueGoodTable,
     // Confirm,
   },
-  props: ["rows", "url"],
+  props: ["rows", "url", "max_partecipanti"],
   emits: ["emptyTable", "fetchData"],
   setup(props, context) {
     const apiStore = useApiStore();
