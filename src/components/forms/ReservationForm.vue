@@ -7,10 +7,18 @@
       :id="formStore.id + 'Reservation'"
       @submit.prevent="submit">
       <div class="mt-0">
+        <div v-if="state.locations === null" class="warning">
+          Per poter selezionare una data è necessario prima selezionare una sede
+        </div>
+        <div
+          v-if="state.date === null && state.locations !== null"
+          class="warning">
+          Per poter selezionare un orario è necessario prima selezionare una
+          data
+        </div>
         <!-- sedi -->
-        <label for="location" class="font-medium block mb-2">
-          Seleziona sede
-        </label>
+
+        <label for="location" class="font-medium block mb-2"> Sede </label>
         <vue-select
           :value="state.locations"
           label="centro"
@@ -22,9 +30,7 @@
 
         <!-- date -->
         <div v-if="state.locations != null">
-          <label for="date" class="font-medium block mb-2">
-            Seleziona data
-          </label>
+          <label for="date" class="font-medium block mb-2"> Data </label>
           <vue-select
             :value="state.date"
             label="data"
@@ -37,9 +43,7 @@
 
         <!-- ore -->
         <div v-if="state.date != null">
-          <label for="hours" class="font-medium block mb-2">
-            Seleziona Ora
-          </label>
+          <label for="hours" class="font-medium block mb-2"> Orario </label>
           <vue-select
             :value="state.hours"
             label="ora"
@@ -76,7 +80,7 @@
           class="w-full" />
         <validation-error :vuelidate="v$.persone" />
 
-        <button @click="showStateLocation">consolelog state</button>
+        <!-- <button @click="showStateLocation">consolelog state</button> -->
 
         <!--TODO AGGIUNGERE VALIDAZIONE? LASCIO QUESTA COME ESEMPIO -->
         <!-- description -->
@@ -263,3 +267,13 @@ export default {
   },
 };
 </script>
+
+<style>
+.warning {
+  background-color: orange;
+  padding: 10px; /* Aggiunge spazio interno */
+  border-radius: 5px; /* Aggiunge bordi arrotondati */
+  width: fit-content; /* Larghezza che si adatta al contenuto */
+  margin-bottom: 10px; /* Aggiunge spazio sotto l'elemento */
+}
+</style>
