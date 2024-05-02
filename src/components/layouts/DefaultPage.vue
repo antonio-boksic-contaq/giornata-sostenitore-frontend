@@ -3,7 +3,6 @@
   <!-- <div v-if="authStore.isLoggedIn" class="flex grid"> -->
   <div class="col-12">
     <h1 class="md:text-7xl text-6xl font-medium mb-3">
-      Giornata del sostenitore
       <!-- <font-awesome-icon
         :icon="icon"
         class="fa-fw md:text-6xl text-5xl text-primary mr-2 font-semibold"></font-awesome-icon> -->

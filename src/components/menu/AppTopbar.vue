@@ -3,8 +3,8 @@
     <div class="layout-topbar-logo">
       <img
         alt="Logo"
-        class="h-16"
-        :src="imgFolderPath + '/logo_contaq_no_bg.png'" />
+        class="h-24"
+        :src="imgFolderPath + '/logo_LFD_no_bg.png'" />
     </div>
     <!-- <button
       class="p-link layout-menu-button layout-topbar-button"
