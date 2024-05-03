@@ -12,7 +12,7 @@
         class="p-button-rounded p-button-success p-button-text mr-2"
         @mouseover="changeTooltipColor('success')"
         v-tooltip.top="'Scarica'"
-        @click="apiStore.export(url, fileName)" />
+        @click="apiStore.export(urlDownload, fileName)" />
     </div>
   </div>
 </template>
@@ -31,9 +31,11 @@ export default {
     const formStore = useFormStore();
     const apiStore = useApiStore();
     const authStore = useAuthStore();
+    const urlDownload = process.env.VUE_APP_API_URL + "/excelDownload";
     const urlModal =
       props.actionUrl === undefined ? props.url : props.actionUrl;
-    const fileName = props.itemText.split(" ").join("_");
+    // const fileName = props.itemText.split(" ").join("_");
+    const fileName = "Report Prenotazioni";
 
     const openModal = () => {
       modalStore.open(props.itemText, "add");
@@ -41,7 +43,14 @@ export default {
       modalStore.modalToShow = props.item;
       formStore.fill("add", urlModal);
     };
-    return { apiStore, authStore, changeTooltipColor, fileName, openModal };
+    return {
+      apiStore,
+      authStore,
+      changeTooltipColor,
+      fileName,
+      openModal,
+      urlDownload,
+    };
   },
 };
 </script>

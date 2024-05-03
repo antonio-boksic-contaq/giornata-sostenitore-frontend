@@ -89,6 +89,7 @@ export default {
     const apiStore = useApiStore();
     const url = process.env.VUE_APP_API_URL + "/reservations";
     const urlLocations = process.env.VUE_APP_API_URL + "/fetchCentro";
+    const urlDownload = process.env.VUE_APP_API_URL + "/excelDownload";
     const rows = ref([]);
     const locations = ref([]);
     const dates = [
@@ -145,6 +146,7 @@ export default {
       locations,
       dates,
       shifts,
+      urlDownload,
     };
   },
 };

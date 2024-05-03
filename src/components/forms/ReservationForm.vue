@@ -63,7 +63,7 @@
 
         <!-- codice sostenitore -->
         <label for="codiceSostenitore" class="font-medium block mb-2">
-          Codice Sostenitore
+          Codice sostenitore
         </label>
         <InputText
           type="text"
