@@ -12,7 +12,7 @@ export const errorToast = () =>
   });
 
 export const successToast = (text = null) => {
-  const title = text === null ? "Operazione esecuita con successo" : text;
+  const title = text === null ? "Operazione eseguita con successo" : text;
   toast(title, {
     type: "success",
     position: "top-right",

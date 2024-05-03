@@ -37,8 +37,12 @@
             props.row.fasciaGiorno
           " />
       </span>
-      <span v-if="props.column.field === 'totaleGDS'">
-        {{ Number(props.row.totaleGDS) + " / " + props.row.max_partecipanti }}
+      <span v-if="props.column.field === 'totalePrenotazioniCentro'">
+        {{
+          Number(props.row.totalePrenotazioniCentro) +
+          " / " +
+          props.row.max_partecipanti
+        }}
       </span>
     </template>
   </vue-good-table>
@@ -98,6 +102,12 @@ export default {
       {
         label: "Prenotazioni",
         field: "totaleGDS",
+        sortable: false,
+      },
+
+      {
+        label: "Prenotazioni Centro",
+        field: "totalePrenotazioniCentro",
         sortable: false,
       },
 

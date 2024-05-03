@@ -105,9 +105,9 @@ export default {
       apiStore.isLoading = true;
       const response = await apiStore.fetch(url);
       rows.value = response;
+      console.log(response);
       const locationsResponse = await apiStore.fetch(urlLocations);
       locations.value = locationsResponse;
-      console.log(locations.value);
       apiStore.isLoading = false;
     });
 

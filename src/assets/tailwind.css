@@ -894,8 +894,8 @@ html {
   height: 2.5rem !important;
 }
 
-.h-16 {
-  height: 4rem !important;
+.h-24 {
+  height: 6rem !important;
 }
 
 .h-20 {
@@ -904,10 +904,6 @@ html {
 
 .h-2\/4 {
   height: 50% !important;
-}
-
-.h-24 {
-  height: 6rem !important;
 }
 
 .w-full {
@@ -941,10 +937,6 @@ html {
 
 .origin-top {
   transform-origin: top !important;
-}
-
-.transform {
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
 }
 
 .cursor-pointer {
@@ -1568,10 +1560,6 @@ html {
 
   .md\:col-end-7 {
     grid-column-end: 7 !important;
-  }
-
-  .md\:col-end-9 {
-    grid-column-end: 9 !important;
   }
 
   .md\:my-0 {

@@ -74,6 +74,26 @@
           class="w-full" />
         <validation-error :vuelidate="v$.codiceSostenitore" />
 
+        <!-- codice sostenitore -->
+        <label for="cognome" class="font-medium block mb-2"> Cognome </label>
+        <InputText
+          type="text"
+          id="cognome"
+          name="cognome"
+          placeholder="Inserire il cognome del sostenitore"
+          v-model="state.cognome"
+          class="w-full" />
+
+        <!-- codice sostenitore -->
+        <label for="nome" class="font-medium block mb-2"> Nome </label>
+        <InputText
+          type="text"
+          id="nome"
+          name="nome"
+          placeholder="Inserire il nome del sostenitore"
+          v-model="state.nome"
+          class="w-full" />
+
         <!-- persone -->
         <label for="persone" class="font-medium block mb-2">
           Numero partecipanti
@@ -165,6 +185,8 @@ export default {
       hours: null,
       codiceSostenitore: null,
       persone: null,
+      cognome: null,
+      nome: null,
     });
 
     // da capire meglio tutto il discorso Vuelidate
