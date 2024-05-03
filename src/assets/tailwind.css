@@ -1534,6 +1534,10 @@ html {
     grid-column-start: 7 !important;
   }
 
+  .md\:col-start-10 {
+    grid-column-start: 10 !important;
+  }
+
   .md\:col-end-12 {
     grid-column-end: 12 !important;
   }

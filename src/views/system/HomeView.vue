@@ -1,9 +1,9 @@
 <template>
   <default-page :icon="['fas', 'list-check']">
     <template #title>Giornata del sostenitore</template>
-    <template #subtitle>
+    <!-- <template #subtitle>
       La lista dei task da poter associare ad uno startup.
-    </template>
+    </template> -->
     <template #content>
       <div class="card filters">
         <standard-action
