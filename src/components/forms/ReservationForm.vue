@@ -13,6 +13,11 @@
           {{ warningMessage }}
         </div>
       </transition>
+      <div v-if="formStore.action == 'update'" class="warning">
+        E' possibile modificare solamente i campi: <strong>Sede</strong>,
+        <strong>Data</strong>, <strong>Orario</strong>,
+        <strong>Numero partecipanti.</strong>
+      </div>
       <div class="mt-0">
         <!-- <transition name="fade">
           <div
@@ -147,6 +152,9 @@ import { useFormStore } from "@/store/forms";
 import Errors from "@/components/shared/Errors.vue";
 import ValidationError from "@/components/shared/ValidationError";
 import VueSelect from "@/components/shared/VueSelect";
+import axios from "axios";
+import { successToast } from "@/utils/toast";
+import { useModalStore } from "../../store/modals";
 
 export default {
   name: "ReservationForm",
@@ -156,6 +164,7 @@ export default {
   setup(props, context) {
     const apiStore = useApiStore();
     const formStore = useFormStore();
+    const modalStore = useModalStore();
     const urlLocations = process.env.VUE_APP_API_URL + "/fetchCentro";
 
     const locations = ref([]);
@@ -170,6 +179,13 @@ export default {
     };
 
     onBeforeMount(async () => {
+      if (formStore.action == "update") {
+        // console.log(
+        //   "se sto in update in teoria dovrei già popolare le ore disponibili come accade quando seleziono data e sede"
+        // );
+        setHoursForSelect();
+      }
+
       apiStore.isLoading = true;
       const response = await apiStore.fetch(urlLocations);
       locations.value = response;
@@ -180,13 +196,15 @@ export default {
       // se mai bisognerà implementare funzionalità di modifica si può utilizzare uno state del genere
       // description: formStore.data != null ? formStore.data.description : null,
       // name: formStore.data != null ? formStore.data.name : null,
-      locations: null,
-      date: null,
-      hours: null,
-      codiceSostenitore: null,
-      persone: null,
-      cognome: null,
-      nome: null,
+      locations: formStore.data != null ? formStore.data.centroGDS : null,
+      date: formStore.data != null ? formStore.data.giornoGDS : null,
+
+      hours: formStore.data != null ? formStore.data.oraGDS : null,
+      codiceSostenitore:
+        formStore.data != null ? formStore.data.idSostenitorecheck : null,
+      persone: formStore.data != null ? formStore.data.PersoneGds : null,
+      cognome: formStore.data != null ? formStore.data.cognome : null,
+      nome: formStore.data != null ? formStore.data.nome : null,
     });
 
     // da capire meglio tutto il discorso Vuelidate
@@ -225,8 +243,30 @@ export default {
         await apiStore.store(formStore.route, formStore.id + "Reservation");
       }
 
-      if (formStore.action === "update")
-        await apiStore.update(formStore.route, formStore.id + "Reservation");
+      if (formStore.action === "update") {
+        //questo era metodo del template, preferisco farla al volo cosi.
+        // await apiStore.update(formStore.route, formStore.id + "Reservation");
+        const url = process.env.VUE_APP_API_URL + "/editReservation";
+        try {
+          await axios.put(url, {
+            location: state.locations,
+            data: state.date,
+            hour: state.hours,
+            persone: state.persone,
+            idSostenitorecheck: state.codiceSostenitore,
+            idDat: formStore.data.idDat,
+          });
+          console.log("Prenotazione modificata con successo");
+          successToast();
+        } catch (error) {
+          console.error(
+            "Errore durante modifica:",
+            error.response?.data?.message || error.message
+          );
+        }
+
+        modalStore.close();
+      }
 
       if (apiStore.success === true) {
         context.emit("emptyTable", true);
@@ -264,21 +304,7 @@ export default {
         //   ? selectedLocation.centro
         //   : null; // mi prendo la proprietà che mi interessa
 
-        let urlHours =
-          process.env.VUE_APP_API_URL +
-          "/fetchOre" +
-          "?" +
-          "centroGDS=" +
-          state.locations +
-          "&data=" +
-          state.date;
-        console.log("urlhours", urlHours);
-
-        //far partire chiamata e popolare hours
-        const response = await apiStore.fetch(urlHours);
-        //console.log(response);
-        hours.value = response;
-        console.log(hours.value);
+        setHoursForSelect();
       }
     };
 
@@ -291,6 +317,24 @@ export default {
         return "";
       }
     });
+
+    const setHoursForSelect = async () => {
+      let urlHours =
+        process.env.VUE_APP_API_URL +
+        "/fetchOre" +
+        "?" +
+        "centroGDS=" +
+        state.locations +
+        "&data=" +
+        state.date;
+      // console.log("urlhours", urlHours);
+
+      //far partire chiamata e popolare hours
+      const response = await apiStore.fetch(urlHours);
+      // console.log(response);
+      hours.value = response;
+      // console.log(hours.value);
+    };
 
     return {
       formStore,

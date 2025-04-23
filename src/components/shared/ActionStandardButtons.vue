@@ -2,17 +2,24 @@
   <div class="md:col-end-7 col-span-3">
     <div
       class="md:text-right mobile-only:flex mobile-only:justify-between mobile-only:w-full">
-      <Button
-        icon="pi pi-plus"
-        class="p-button-rounded p-button-primary p-button-text mr-3"
-        :label="'Aggiungi ' + itemText"
-        @click="openModal"></Button>
-      <Button
-        icon="pi pi-file-excel text-3xl"
-        class="p-button-rounded p-button-success p-button-text mr-2"
-        @mouseover="changeTooltipColor('success')"
-        v-tooltip.top="'Scarica'"
-        @click="apiStore.export(urlDownload, fileName)" />
+      <div class="inline-flex items-center">
+        <Button
+          icon="pi pi-search"
+          class="p-button-rounded p-button-primary p-button-text mr-3 border-solid border-2 border-gray-300"
+          :label="'Cerca ' + itemText"
+          @click="openModal('search')"></Button>
+        <Button
+          icon="pi pi-plus"
+          class="p-button-rounded p-button-primary p-button-text mr-3 border-solid border-2 border-gray-300"
+          :label="'Aggiungi ' + itemText"
+          @click="openModal('add')"></Button>
+        <Button
+          icon="pi pi-file-excel text-3xl"
+          class="p-button-rounded p-button-success p-button-text mr-2 border-solid border-2 border-gray-300"
+          @mouseover="changeTooltipColor('success')"
+          v-tooltip.top="'Scarica'"
+          @click="apiStore.export(urlDownload, fileName)" />
+      </div>
     </div>
   </div>
 </template>
@@ -37,11 +44,11 @@ export default {
     // const fileName = props.itemText.split(" ").join("_");
     const fileName = "Report Prenotazioni";
 
-    const openModal = () => {
-      modalStore.open(props.itemText, "add");
-      formStore.formToShow = props.item;
+    const openModal = (action) => {
+      modalStore.open(props.itemText, action);
+      formStore.formToShow = action + " " + props.item;
       modalStore.modalToShow = props.item;
-      formStore.fill("add", urlModal);
+      formStore.fill(action, urlModal);
     };
     return {
       apiStore,

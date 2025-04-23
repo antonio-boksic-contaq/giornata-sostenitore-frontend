@@ -26,6 +26,14 @@ export const useModalStore = defineStore("modal", {
         this.icon = "pi-search-plus";
       } else if (type === "warning") {
         this.color = "warning";
+      } else if (type === "search") {
+        this.title = "Cerca " + item;
+        this.color = "info";
+        this.icon = "pi-search";
+      } else if (type === "delete") {
+        this.title = "Cancella " + item;
+        this.color = "error";
+        this.icon = "pi-danger";
       } else {
         this.title = "Aggiungi " + item;
         this.color = "primary";
