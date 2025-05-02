@@ -169,8 +169,8 @@ export default {
 
     const locations = ref([]);
     const dates = [
-      { id: 1, data: "Venerdì 24 maggio " },
-      { id: 2, data: "Sabato 25 maggio " },
+      { id: 1, data: "Venerdì 23 maggio " },
+      { id: 2, data: "Sabato 24 maggio " },
     ];
     const hours = ref([]);
 
@@ -244,6 +244,7 @@ export default {
       }
 
       if (formStore.action === "update") {
+        // QUA DEVO AGGIUNGERE EMPTY TABLE E REFRESH DOPO CHIAMATA CON SUCCESSO, STESSA COSA PER DELETE
         //questo era metodo del template, preferisco farla al volo cosi.
         // await apiStore.update(formStore.route, formStore.id + "Reservation");
         const url = process.env.VUE_APP_API_URL + "/editReservation";
@@ -257,6 +258,11 @@ export default {
             idDat: formStore.data.idDat,
           });
           console.log("Prenotazione modificata con successo");
+          context.emit("emptyTable", true);
+          apiStore.isLoading = true;
+          const response = await apiStore.fetch(props.url, apiStore.params);
+          context.emit("fetchData", response);
+          formStore.empty();
           successToast();
         } catch (error) {
           console.error(
@@ -269,6 +275,9 @@ export default {
       }
 
       if (apiStore.success === true) {
+        console.log(
+          "faccio emit di emptytable e fetchdata da reservation form"
+        );
         context.emit("emptyTable", true);
         apiStore.isLoading = true;
         const response = await apiStore.fetch(props.url, apiStore.params);

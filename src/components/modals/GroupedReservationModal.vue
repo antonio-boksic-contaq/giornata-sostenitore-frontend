@@ -60,6 +60,7 @@ import { useModalStore } from "../../store/modals";
 import axios from "axios";
 // import { errorToast, warningToast, successToast } from "@/utils/toast";
 import { successToast } from "@/utils/toast";
+import { useApiStore } from "@/store/api";
 
 export default {
   name: "GroupedReservationModal",
@@ -72,6 +73,7 @@ export default {
     Modal,
   },
   setup(props, context) {
+    const apiStore = useApiStore();
     const formStore = useFormStore();
     const modalStore = useModalStore();
     const emptyTable = () => {
@@ -97,6 +99,11 @@ export default {
         });
         console.log("Prenotazione eliminata con successo");
         successToast();
+        context.emit("emptyTable", true);
+        apiStore.isLoading = true;
+        const response = await apiStore.fetch(props.url, apiStore.params);
+        context.emit("fetchData", response);
+        formStore.empty();
       } catch (error) {
         console.error(
           "Errore durante l'eliminazione:",

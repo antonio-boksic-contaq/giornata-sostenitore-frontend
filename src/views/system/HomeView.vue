@@ -93,8 +93,8 @@ export default {
     const rows = ref([]);
     const locations = ref([]);
     const dates = [
-      { id: 1, data: "Venerdì 24 maggio " },
-      { id: 2, data: "Sabato 25 maggio " },
+      { id: 1, data: "Venerdì 23 maggio " },
+      { id: 2, data: "Sabato 24 maggio " },
     ];
     const shifts = [
       { id: 1, turno: "Mattina" },
@@ -112,10 +112,12 @@ export default {
     });
 
     const emptyRows = () => {
+      console.log("CHIAMATO EMPTY ROWS");
       rows.value = [];
     };
 
     const fetchData = (event) => {
+      console.log("CHIAMATO FETCH DATA");
       rows.value = event;
       apiStore.isLoading = false;
     };
