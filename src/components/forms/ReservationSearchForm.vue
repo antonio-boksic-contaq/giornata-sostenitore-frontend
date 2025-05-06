@@ -99,6 +99,9 @@
             Centro GDS: <strong>{{ infoOfReservation.centroGDS }}</strong>
           </div>
           <div>
+            Giorno: <strong>{{ infoOfReservation.giornoGDS }}</strong>
+          </div>
+          <div>
             Ora: <strong>{{ infoOfReservation.oraGDS }}</strong>
           </div>
         </div>
