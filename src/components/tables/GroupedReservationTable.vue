@@ -44,6 +44,13 @@
           props.row.max_partecipanti
         }}
       </span>
+      <span v-if="props.column.field === 'totaleGDS'">
+        {{
+          Number(props.row.totaleGDS) +
+          " / " +
+          props.row.max_partecipanti_turno_sede
+        }}
+      </span>
     </template>
   </vue-good-table>
   <Confirm @fetchData="fetchData($event)" @emptyTable="emptyTable" />

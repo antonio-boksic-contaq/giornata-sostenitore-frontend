@@ -38,7 +38,11 @@
           " />
       </span>
       <span v-if="props.column.field === 'totaleGDS'">
-        {{ Number(props.row.totaleGDS) + " / " + max_partecipanti }}
+        {{
+          Number(props.row.totaleGDS) +
+          " / " +
+          Number(props.row.max_partecipanti_slot)
+        }}
       </span>
     </template>
   </vue-good-table>

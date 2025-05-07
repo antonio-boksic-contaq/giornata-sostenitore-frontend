@@ -36,7 +36,9 @@ export default {
       "&giornoGDS=" +
       modalStore.detailItem.data +
       "&timeOfDay=" +
-      modalStore.detailItem.fasciaGiorno;
+      modalStore.detailItem.fasciaGiorno +
+      "&id_fascia_oraria=" +
+      modalStore.detailItem.id;
 
     const reservations = ref([]);
 
